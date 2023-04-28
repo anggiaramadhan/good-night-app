@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_27_051112) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_054831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "records", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "clock_in", null: false
+    t.datetime "clock_out"
+    t.decimal "duration"
+    t.boolean "complete", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_records_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", limit: 50, null: false
@@ -20,4 +31,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_27_051112) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "records", "users"
 end
