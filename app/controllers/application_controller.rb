@@ -11,6 +11,10 @@ class ApplicationController < ActionController::API
     header = request.headers['Authorization']
     header = header.split(' ').last if header
     @current_user = User.find_by(name: decode_token(header)[:name])
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { message: e.message }, status: :unauthorized
+  rescue JWT::DecodeError => e
+    render json: { message: e.message }, status: :unauthorized
   end
 
   def decode_token(token)
