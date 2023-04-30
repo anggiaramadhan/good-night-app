@@ -15,4 +15,9 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(name: 'A sessional instructor of Interaction Design at Emily Carr University of Art and Design')
     assert_not user.save, 'failed to create new user with more than 50 chars name'
   end
+
+  test 'should create a clock_in record' do
+    user = User.first
+    assert user.clock_in, 'success clock_in and create new record'
+  end
 end
