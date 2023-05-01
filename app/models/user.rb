@@ -4,8 +4,8 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
 
   has_many :records
-  has_many :followers, class_name: 'Follower', foreign_key: 'follower_id'
-  has_many :followees, class_name: 'Follower', foreign_key: 'followee_id'
+  has_many :followers, class_name: 'Follower', foreign_key: 'followee_id'
+  has_many :followees, class_name: 'Follower', foreign_key: 'follower_id'
 
   SECRET_KEY = Rails.application.credentials.secret_key_base
 
@@ -31,5 +31,16 @@ class User < ApplicationRecord
 
   def record_histories
     records.order(:created_at)
+  end
+
+  def follow(followee_id)
+    followees.create(followee_id:)
+  end
+
+  def unfollow(followee_id)
+    followee = followees.find_by(followee_id:)
+    return unless followee.present?
+
+    followee.delete
   end
 end

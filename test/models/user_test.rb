@@ -30,4 +30,17 @@ class UserTest < ActiveSupport::TestCase
     user = User.first
     assert user.record_histories, 'success fetch all records'
   end
+
+  test 'should follow another user' do
+    user = User.first
+    followee = User.last
+    assert user.follow(followee.id), 'success follow other user'
+  end
+
+  test 'should unfollow another user' do
+    user = User.first
+    followee = User.last
+    user.follow(followee.id)
+    assert user.unfollow(followee.id), 'success unfollow other user'
+  end
 end
