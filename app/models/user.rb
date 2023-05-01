@@ -4,6 +4,8 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
 
   has_many :records
+  has_many :followers, class_name: 'Follower', foreign_key: 'follower_id'
+  has_many :followees, class_name: 'Follower', foreign_key: 'followee_id'
 
   SECRET_KEY = Rails.application.credentials.secret_key_base
 
