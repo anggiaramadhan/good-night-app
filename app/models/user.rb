@@ -49,7 +49,7 @@ class User < ApplicationRecord
     friends.map do |f|
       {
         name: f.friend.name,
-        records: f.friend_histories.where(complete: true).order(:duration).map do |h|
+        records: f.friend_histories.where(complete: true, created_at: 1.week.ago..).order(:duration).map do |h|
                    {
                      clock_in: h.clock_in.strftime('%d %b %Y %H:%M:%S'),
                      clock_out: h.clock_out.strftime('%d %b %Y %H:%M:%S'),
