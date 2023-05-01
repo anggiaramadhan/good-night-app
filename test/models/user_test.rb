@@ -25,4 +25,9 @@ class UserTest < ActiveSupport::TestCase
     user = User.first
     assert user.clock_out(user.id), 'success clock_out and update uncomplete record'
   end
+
+  test 'should return record histories for the user' do
+    user = User.first
+    assert user.record_histories, 'success fetch all records'
+  end
 end

@@ -12,7 +12,10 @@ class User < ApplicationRecord
   end
 
   def clock_in
-    records.create(clock_in: Time.now)
+    record = records.create(clock_in: Time.now)
+    return unless record.present?
+
+    record_histories
   end
 
   def clock_out(id)
@@ -22,5 +25,9 @@ class User < ApplicationRecord
     clock_out_time = Time.now
     duration_in_hours = (clock_out_time - record.clock_in) / 3600
     record.update(clock_out: clock_out_time, complete: true, duration: duration_in_hours)
+  end
+
+  def record_histories
+    records.order(:created_at)
   end
 end
