@@ -46,9 +46,10 @@ class User < ApplicationRecord
 
   def friend_records
     friends = followees.includes(:friend_histories)
-    friends.map do |f|
+    histories = friends.map do |f|
       {
         name: f.friend.name,
+        total_duration: f.friend_histories.where(complete: true, created_at: 1.week.ago..).sum(:duration),
         records: f.friend_histories.where(complete: true, created_at: 1.week.ago..).order(:duration).map do |h|
                    {
                      clock_in: h.clock_in.strftime('%d %b %Y %H:%M:%S'),
@@ -58,5 +59,6 @@ class User < ApplicationRecord
                  end
       }
     end
+    histories.sort_by { |x| x[:total_duration] }
   end
 end
