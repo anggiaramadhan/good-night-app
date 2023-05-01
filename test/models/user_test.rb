@@ -43,4 +43,9 @@ class UserTest < ActiveSupport::TestCase
     user.follow(followee.id)
     assert user.unfollow(followee.id), 'success unfollow other user'
   end
+
+  test 'should fetch all friends records' do
+    user = User.first
+    assert user.friend_records, 'success fetch all friends records'
+  end
 end

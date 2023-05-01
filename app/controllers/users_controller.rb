@@ -16,4 +16,6 @@ class UsersController < ApplicationController
       render json: { message: 'failed to unfollow the user' }, status: :bad_request
     end
   end
+
+  def histories; end
 end

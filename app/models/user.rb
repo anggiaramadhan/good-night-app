@@ -43,4 +43,20 @@ class User < ApplicationRecord
 
     followee.delete
   end
+
+  def friend_records
+    friends = followees.includes(:friend_histories)
+    friends.map do |f|
+      {
+        name: f.friend.name,
+        records: f.friend_histories.where(complete: true).map do |h|
+                   {
+                     clock_in: h.clock_in.strftime('%d %b %Y %H:%M:%S'),
+                     clock_out: h.clock_out.strftime('%d %b %Y %H:%M:%S'),
+                     duration: h.duration
+                   }
+                 end
+      }
+    end
+  end
 end
