@@ -20,4 +20,9 @@ class UserTest < ActiveSupport::TestCase
     user = User.first
     assert user.clock_in, 'success clock_in and create new record'
   end
+
+  test 'should create a clock_out record' do
+    user = User.first
+    assert user.clock_out, 'success clock_out and update uncomplete record'
+  end
 end
