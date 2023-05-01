@@ -17,5 +17,12 @@ class UsersController < ApplicationController
     end
   end
 
-  def histories; end
+  def histories
+    records = @current_user.friend_records
+    if records.present?
+      render json: { records: }, status: :ok
+    else
+      render json: { message: 'failed to fetch all the friends records' }, status: :bad_request
+    end
+  end
 end
