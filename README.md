@@ -1,24 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Database
+![Database design](good-night-db.png)
 
-Things you may want to cover:
+## Endpoints
+1. Login `POST /api/sessions`
+   <br>
+   body
+   <br>
+   ```
+   { 
+     "user": { 
+       "name": "Name of the user"
+      }
+   }
+   ```
+2. Follow user `PUT /api/users/:user_id/follow`
+3. Unfollow user `PUT /api/users/:user_id/unfollow`
+4. Clock in function `POST /api/records`
+5. Clock out function `PUT /api/records/:record_id`
+6. See all friend sleep histories `GET /api/users/histories`
 
-* Ruby version
+## Authentication
+it was designed to be a simple application. We can login using user's name and will returned jwt to authenticate another endpoints.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Testing
+We use native Rails unit testing to cover testing for the app. We can improve it using Rspec in the future.
+```
+rails test
+```
